@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Drivent",
-    "dateExported": "2023-04-12T17:09:44.684Z",
+    "dateExported": "2023-04-13T21:02:40.673Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -10,16 +10,16 @@
             "colId": "6eff0f5a-0589-48bf-856f-66792e9e7045",
             "containerId": "",
             "name": "Obten CEP",
-            "url": "http://localhost:4000/enrollments/cep?cep=95010 10",
+            "url": "http://localhost:4000/enrollments/cep?cep=35060100",
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-04-05T21:26:53.814Z",
-            "modified": "2023-04-10T18:42:12.414Z",
+            "modified": "2023-04-12T18:26:48.368Z",
             "headers": [],
             "params": [
                 {
                     "name": "cep",
-                    "value": "95010 10",
+                    "value": "35060100",
                     "isPath": false
                 }
             ],
@@ -34,11 +34,11 @@
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-04-12T16:46:40.961Z",
-            "modified": "2023-04-12T16:59:10.212Z",
+            "modified": "2023-04-12T17:53:58.021Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE5OCwiaWF0IjoxNjgxMzE4NzI5fQ.qiWqD9vQrapyPXCZOhJWuU5fNGt7BsDOWDCvOXcOMfQ"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM1NCwiaWF0IjoxNjgxMzIyMDIzfQ.QOVJRC8WlJKYFVDtUz83qJg4EPhzk7TkVgY5kZc697c"
                 }
             ],
             "params": [],
@@ -78,6 +78,30 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"email\": \"teste@teste.com\",\n  \"password\": \"12345678\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d78158b7-2127-42d2-8136-457c6d5d13f1",
+            "colId": "6eff0f5a-0589-48bf-856f-66792e9e7045",
+            "containerId": "",
+            "name": "create tickets",
+            "url": "http://localhost:4000/tickets",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-04-13T20:13:30.556Z",
+            "modified": "2023-04-13T20:32:46.041Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwOSwiaWF0IjoxNjgxNDE3NjU3fQ.rv_pbSsr_A4EUtsl2XKZsT9PVnpoyQqsPfZ9NnE3rWM"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"ticketTypeId\": 72\n}",
                 "form": []
             },
             "tests": []

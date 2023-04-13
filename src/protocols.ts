@@ -1,3 +1,5 @@
+import { TicketStatus } from '@prisma/client';
+
 export type ApplicationError = {
   name: string;
   message: string;
@@ -28,30 +30,29 @@ export type RequestError = {
   message: string;
 };
 
-
 export type TicketRequest = {
-  id?: number,
- // name?: string, 
-  status?: string, //RESERVED | PAID
-  ticketTypeId?: number,
-  enrollmentId?: number,
-}
+  id?: number;
+  // name?: string,
+  status?: TicketStatus; //RESERVED | PAID
+  ticketTypeId?: number;
+  enrollmentId?: number;
+};
 
 export type TicketResponse = {
-  id?: number,
-  name?: string,
+  id?: number;
+  name?: string;
   createAt?: Date;
   updateAt?: Date;
-  status?: string, //RESERVED | PAID
-  ticketTypeId?: number,
-  enrollmentId?: number,
+  status?: string | TicketStatus; //RESERVED | PAID
+  ticketTypeId?: number;
+  enrollmentId?: number;
   TicketType: {
-    id?: number,
-    name?: string,
-    price?: number,
-    isRemote?: boolean,
-    includesHotel?: boolean
-    createdAt?: Date,
-    updatedAt?: Date,
-  }  
-}
+    id?: number;
+    name?: string;
+    price?: number;
+    isRemote?: boolean;
+    includesHotel?: boolean;
+    createdAt?: Date;
+    updatedAt?: Date;
+  };
+};
