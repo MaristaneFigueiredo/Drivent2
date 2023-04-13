@@ -28,7 +28,6 @@ export async function createTiket(req: AuthenticatedRequest, res: Response) {
     return res.send(httpStatus.NOT_FOUND);
   }
 }
-
 // const ticketscontroller = {
 //   getTicketsType,
 // };
