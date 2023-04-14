@@ -77,22 +77,20 @@ export type CreateOrUpdateEnrollmentWithAddress = CreateEnrollmentParams & {
 };
 
 async function getEnrollmentByUserId(userId: number): Promise<Enrollment> {
-  
-  const enrollment = await enrollmentRepository.getEnrollmentByUserId(userId);  
-  
+  const enrollment = await enrollmentRepository.getEnrollmentByUserId(userId);
+
   if (!enrollment) {
-  
     throw notFoundError;
   }
-  
-  return enrollment 
+
+  return enrollment;
 }
 
 const enrollmentsService = {
   getOneWithAddressByUserId,
   createOrUpdateEnrollmentWithAddress,
   getAddressFromCEP,
-  getEnrollmentByUserId
+  getEnrollmentByUserId,
 };
 
 export default enrollmentsService;

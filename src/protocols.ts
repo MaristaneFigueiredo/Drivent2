@@ -1,11 +1,9 @@
-import { TicketStatus } from '@prisma/client';
-import { Ticket } from '@prisma/client';
+import { TicketStatus, Ticket } from '@prisma/client';
 
 export type ApplicationError = {
   name: string;
   message: string;
 };
-
 
 export type ViaCEPAddress = {
   logradouro: string;
@@ -32,8 +30,7 @@ export type RequestError = {
   message: string;
 };
 
-export type TicketInput = Omit<Ticket, "id" | "createAt" |"updateAt">
-
+export type TicketInput = Omit<Ticket, 'id' | 'createAt' | 'updateAt'>;
 
 export type TicketResponse = {
   id?: number;

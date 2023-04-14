@@ -29,7 +29,7 @@ export function handleApplicationErrors(err: ApplicationError | Error, _req: Req
 
   if (err.name === 'NotFoundError') {
     return res.status(httpStatus.NOT_FOUND).send({
-    //  return res.status(httpStatus.NO_CONTENT).send({
+      //  return res.status(httpStatus.NO_CONTENT).send({
       message: err.message,
     });
   }
