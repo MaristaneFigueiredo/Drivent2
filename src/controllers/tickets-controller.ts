@@ -1,8 +1,8 @@
 import ticketsService from '@/services/tickets-service';
 import { AuthenticatedRequest } from '@/middlewares';
-import { Response } from 'express';
+import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import { TicketRequest } from '@/protocols';
+//import { TicketRequest } from '@/protocols';
 
 export async function getTicketsType(req: AuthenticatedRequest, res: Response) {
   //async function getTicketsType(req: AuthenticatedRequest, res: Response) {
@@ -15,17 +15,18 @@ export async function getTicketsType(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function createTiket(req: AuthenticatedRequest, res: Response) {
-  //console.log('req', req);
-  const { ticketTypeId } = req.body as TicketRequest;
+export async function createTiket(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  
+  const  ticketTypeId  = Number(req.body.ticketTypeId) ;
 
-  const userId: number = req.userId;
+  const userId = req.userId;
 
   try {
     const ticket = await ticketsService.createTiket(ticketTypeId, userId);
     return res.status(httpStatus.CREATED).send(ticket);
   } catch (error) {
-    return res.send(httpStatus.NOT_FOUND);
+    //return res.send(httpStatus.NOT_FOUND);
+    next(error)
   }
 }
 // const ticketscontroller = {

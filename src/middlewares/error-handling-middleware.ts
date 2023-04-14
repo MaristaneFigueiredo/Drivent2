@@ -33,6 +33,10 @@ export function handleApplicationErrors(err: ApplicationError | Error, _req: Req
     });
   }
 
+  if (err.name === 'BadRequestError') {
+    return res.status(httpStatus.BAD_REQUEST);
+  }
+
   /* eslint-disable-next-line no-console */
   console.error(err.name);
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({

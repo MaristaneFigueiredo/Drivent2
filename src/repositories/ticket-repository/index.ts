@@ -1,25 +1,53 @@
 import { prisma } from '@/config';
-import { TicketRequest } from '@/protocols';
+import { TicketInput } from '@/protocols';
+import { Ticket } from '@prisma/client';
 
 async function getTicketsType() {
   return await prisma.ticketType.findMany();
 }
 
-//{ ticketTypeId, enrollmentId: enrollment.id, status: 'RESERVED' }
+async function getTicketType(ticketTypeId:number) {  
+  return await prisma.ticketType.findFirst({
+    where: {
+      id:ticketTypeId,
+    }
+  });
+}
 
-//async function createTiket(dataTicket: TicketRequest) {
-async function createTiket({ ticketTypeId, enrollmentId, status }: TicketRequest) {
+
+async function createTiket(data: TicketInput): Promise<Ticket> {
   return await prisma.ticket.create({
-    // data: {
-    //   ticketTypeId: dataTicket.ticketTypeId,
-    //   enrollmentId: dataTicket.enrollmentId,
-    //   status: dataTicket.status,
-    // },
+    data: 
+     data
+    ,
+  });
+}
 
-    data: {
-      ticketTypeId: ticketTypeId,
-      enrollmentId: enrollmentId,
-      status: status,
+async function findTicketWithTicketTypeById(id: number) {
+  return prisma.ticket.findFirst({
+   /*  where: { id },
+    include: {
+      TicketType: true,
+    }, */
+    where: { id },
+    select: {
+      id: true,
+      status: true,
+      ticketTypeId: true,
+      enrollmentId: true,     
+      TicketType: {
+        select:{
+        id: true,
+        name: true,
+        price: true,
+        isRemote: true,
+        includesHotel: true,
+        createdAt: true,
+        updatedAt: true,
+        }
+      },
+      createdAt: true,
+      updatedAt: true,      
     },
   });
 }
@@ -27,6 +55,8 @@ async function createTiket({ ticketTypeId, enrollmentId, status }: TicketRequest
 const ticketRepository = {
   getTicketsType,
   createTiket,
+  getTicketType,
+  findTicketWithTicketTypeById
 };
 
 export default ticketRepository;

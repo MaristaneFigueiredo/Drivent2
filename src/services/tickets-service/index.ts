@@ -1,63 +1,56 @@
 import ticketRepository from '@/repositories/ticket-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
-import { notFoundError } from '@/errors';
-import { TicketStatus } from '@prisma/client';
-import { TicketRequest } from '@/protocols';
+import { notFoundError, badRequestError } from '@/errors';
+import { TicketStatus, TicketType } from '@prisma/client';
+import { TicketInput } from '@/protocols';
 import { BAD_REQUEST } from 'http-status';
+import enrollmentsService from '@/services/enrollments-service';
 
-async function getTicketsType() {
+async function getTicketsType(): Promise<TicketType[]> {
   const TicketsType = await ticketRepository.getTicketsType();
   return TicketsType;
 }
 
-async function createTiket(ticketTypeId: number, userId: number) {
-  const enrollment = await enrollmentRepository.getEnrollmentByUserId(userId);
-
-  if (!enrollment) {
-    throw notFoundError;
-  }
-
-  const ticketType = await enrollmentRepository.getEnrollmentByUserId(ticketTypeId);
+async function getTicketType(ticketTypeId:number): Promise<TicketType> {
+  const TicketType = await ticketRepository.getTicketType(ticketTypeId);
 
   if (!ticketTypeId) {
-    // throw BAD_REQUEST;
+     throw badRequestError();
     // return res.sendStatus(httpStatus.BAD_REQUEST);
   }
+  return TicketType;
+}
 
-  // const dataTicket: TicketRequest = {
-  //   ticketTypeId: ticketTypeId,
-  //   enrollmentId: enrollment.id,
-  //   status: 'RESERVED',
-  // };
 
-  //console.log('dataTicket', dataTicket);
-  ///const ticket = await ticketRepository.createTiket(dataTicket);
-  const ticket = await ticketRepository.createTiket({
-    ticketTypeId,
-    enrollmentId: enrollment.id,
-    status: TicketStatus.RESERVED,
-  });
+async function createTiket(ticketTypeId: number, userId: number) {  
 
-  //console.log('ticket =', ticket);
-  // const result = {
-  //   id: ticket.id,
-  //   status: ticket.status, //RESERVED | PAID
-  //   ticketTypeId: ticket.ticketTypeId,
-  //   enrollmentId: ticket.enrollmentId,
-  //   TicketType: {
-  //     id: number,
-  //     name: string,
-  //     price: number,
-  //     isRemote: boolean,
-  //     includesHotel: boolean,
-  //     createdAt: Date,
-  //     updatedAt: Date,
-  //   },
-  //   createdAt: ticket.createdAt,
-  //   updatedAt: ticket.updatedAt,
-  // };
+  //const enrollment = await enrollmentRepository.getEnrollmentByUserId(userId);
 
-  return ticket;
+/*   if (!enrollment) {
+    throw notFoundError;    
+  } */
+
+   //if (!ticketTypeId) {
+    // throw BAD_REQUEST;
+    // return res.sendStatus(httpStatus.BAD_REQUEST);
+  //}
+
+  const enrollment = await enrollmentsService.getEnrollmentByUserId(userId);
+  const ticketType = await getTicketType(ticketTypeId); 
+
+
+   const data = {
+     ticketTypeId: ticketTypeId,
+     enrollmentId: enrollment.id,               
+     status:TicketStatus.RESERVED ,
+   } as TicketInput;
+   
+  const ticket = await ticketRepository.createTiket(data);
+
+  
+   const ticketDetails = await ticketRepository.findTicketWithTicketTypeById(ticket.id);
+   return ticketDetails
+  
 }
 
 const ticketsService = {
