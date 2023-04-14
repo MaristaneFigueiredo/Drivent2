@@ -1,5 +1,5 @@
 import { prisma } from '@/config';
-import { TicketInput } from '@/protocols';
+import { TicketInput, TicketResponse } from '@/protocols';
 import { Ticket } from '@prisma/client';
 
 async function getTicketsType() {
@@ -23,7 +23,7 @@ async function createTiket(data: TicketInput): Promise<Ticket> {
   });
 }
 
-async function findTicketWithTicketTypeById(id: number) {
+async function findTicketWithTicketTypeById(id: number):Promise<TicketResponse> {
   return prisma.ticket.findFirst({
    /*  where: { id },
     include: {

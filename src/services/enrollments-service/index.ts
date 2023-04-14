@@ -82,7 +82,7 @@ async function getEnrollmentByUserId(userId: number): Promise<Enrollment> {
   
   if (!enrollment) {
   
-    throw notFoundError();
+    throw notFoundError;
   }
   
   return enrollment 
