@@ -15,7 +15,8 @@ export async function getTicketsType(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function createTiket(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export async function createTiket(req: AuthenticatedRequest, res: Response) {
+//export async function createTiket(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   
   const  ticketTypeId  = Number(req.body.ticketTypeId) ;
 
@@ -26,8 +27,12 @@ export async function createTiket(req: AuthenticatedRequest, res: Response, next
     return res.status(httpStatus.CREATED).send(ticket);
   } catch (error) {
     //return res.send(httpStatus.NOT_FOUND);
-    next(error)
+    //next(error)
+    switch(error.name) {
+    case "notFoundError" : return res.sendStatus(httpStatus.NO_CONTENT); break;
+    cledefault: return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR); break;
   }
+}
 }
 // const ticketscontroller = {
 //   getTicketsType,

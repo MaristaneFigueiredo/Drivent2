@@ -24,11 +24,10 @@ async function getTicketType(ticketTypeId:number): Promise<TicketType> {
 
 async function createTiket(ticketTypeId: number, userId: number) {  
 
-  //const enrollment = await enrollmentRepository.getEnrollmentByUserId(userId);
-
-/*   if (!enrollment) {
+  /* const enrollment = await enrollmentRepository.getEnrollmentByUserId(userId);
+   if (!enrollment) {
     throw notFoundError;    
-  } */
+  } */ 
 
    //if (!ticketTypeId) {
     // throw BAD_REQUEST;
