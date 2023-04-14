@@ -1,9 +1,7 @@
 import { TicketStatus, TicketType } from '@prisma/client';
 import ticketRepository from '@/repositories/ticket-repository';
-import enrollmentRepository from '@/repositories/enrollment-repository';
 import { notFoundError, badRequestError } from '@/errors';
 import { TicketInput } from '@/protocols';
-// import { BAD_REQUEST } from 'http-status';
 import enrollmentsService from '@/services/enrollments-service';
 
 async function getTicketsType(): Promise<TicketType[]> {
@@ -15,9 +13,7 @@ async function getTicketType(ticketTypeId: number): Promise<TicketType> {
   const TicketType = await ticketRepository.getTicketType(ticketTypeId);
 
   if (!TicketType) {
-    //throw badRequestError();
     throw notFoundError;
-    // return res.sendStatus(httpStatus.BAD_REQUEST);
   }
   return TicketType;
 }
