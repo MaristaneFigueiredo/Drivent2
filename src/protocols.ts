@@ -1,4 +1,4 @@
-import { TicketStatus, Ticket } from '@prisma/client';
+import { TicketStatus, Ticket, Payment } from '@prisma/client';
 
 export type ApplicationError = {
   name: string;
@@ -50,3 +50,15 @@ export type TicketResponse = {
     updatedAt?: Date;
   };
 };
+
+
+export type PaymentInput = {  
+  ticketId:number,
+  cardData:{    
+    issuer: string,
+    number: number,
+    name: string,
+    expirationDate: Date,
+    cvv: number    
+  }
+}

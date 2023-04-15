@@ -86,11 +86,22 @@ async function getEnrollmentByUserId(userId: number): Promise<Enrollment> {
   return enrollment;
 }
 
+async function getEnrollmentById(id: number): Promise<Enrollment> {
+  const enrollment = await enrollmentRepository.getEnrollmentById(id);
+
+  if (!enrollment) {
+    throw notFoundError;
+  }
+
+  return enrollment;
+}
+
 const enrollmentsService = {
   getOneWithAddressByUserId,
   createOrUpdateEnrollmentWithAddress,
   getAddressFromCEP,
   getEnrollmentByUserId,
+  getEnrollmentById
 };
 
 export default enrollmentsService;

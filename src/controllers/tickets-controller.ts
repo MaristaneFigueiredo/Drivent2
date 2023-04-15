@@ -2,7 +2,7 @@ import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import ticketsService from '@/services/tickets-service';
 import { AuthenticatedRequest } from '@/middlewares';
-//import { TicketRequest } from '@/protocols';
+
 
 export async function getTicketsType(req: AuthenticatedRequest, res: Response) {
   //async function getTicketsType(req: AuthenticatedRequest, res: Response) {
