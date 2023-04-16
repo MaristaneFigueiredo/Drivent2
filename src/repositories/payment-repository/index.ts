@@ -35,7 +35,7 @@ async function getPaymentsProcess(ticketId:number) {
   })  */
 
   return await prisma.payment.findFirst({
-    where:{id:ticketId}
+    where:{ticketId:ticketId}
   }) 
 
 }
