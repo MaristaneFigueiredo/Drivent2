@@ -1,12 +1,12 @@
-import { Ticket } from '@prisma/client';
+import { Ticket,TicketType } from '@prisma/client';
 import { prisma } from '@/config';
 import { TicketInput, TicketResponse } from '@/protocols';
 
-async function getTicketsType() {
+async function getTicketsType(): Promise<TicketType[]> {
   return await prisma.ticketType.findMany();
 }
 
-async function getTicketType(ticketTypeId: number) {
+async function getTicketType(ticketTypeId: number):Promise<TicketType> {
   return await prisma.ticketType.findFirst({
     where: {
       id: ticketTypeId,
@@ -75,7 +75,7 @@ async function getTiketsByUser(id: number): Promise<TicketResponse> {
 }
 
 
-async function findTicket(ticketTypeId: number) {
+async function findTicket(ticketTypeId: number):Promise<Ticket> {
   return await prisma.ticket.findFirst({
     where: {
       id: ticketTypeId,
@@ -83,7 +83,7 @@ async function findTicket(ticketTypeId: number) {
   });
 }
 
-async function setTicketAsPaid(ticketId: number) {
+async function setTicketAsPaid(ticketId: number):Promise<Ticket> {
   return await prisma.ticket.update({
     where: {
       id: ticketId,

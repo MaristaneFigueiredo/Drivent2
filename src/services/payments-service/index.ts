@@ -32,10 +32,21 @@ async function createPaymentProcess(userId:number,{ticketId, cardData}:PaymentIn
   return paymentTicket
 }
 
-export async function getPaymentsProcess() {}
+async function getPaymentsProcess(userId:number, ticketId:number) {
+  
+  const ticket = await ticketsService.findTicket(ticketId);
+
+  await findTicketUser(ticket.enrollmentId, userId)
+
+  const payments = await paymentRepository.getPaymentsProcess(ticketId)
+  
+  return payments
+
+}
 
 const paymentsService = {
   createPaymentProcess,
+  getPaymentsProcess
 };
 
 export default paymentsService;
